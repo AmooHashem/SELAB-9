@@ -1,5 +1,7 @@
 package codeGenerator;
 
+import codeGenerator.address.Address;
+
 import java.util.ArrayList;
 import java.util.List;
 

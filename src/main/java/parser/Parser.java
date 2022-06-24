@@ -19,7 +19,8 @@ public class Parser {
   private Stack<Integer> parsStack;
   private ParseTable parseTable;
   private lexicalAnalyzer lexicalAnalyzer;
-  private CodeGenerator cg;
+  private CodeGenerator cg = new CodeGenerator();
+
 
   public Parser() {
     parsStack = new Stack<Integer>();
@@ -37,7 +38,6 @@ public class Parser {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    cg = new CodeGenerator();
   }
 
   public void startParse(java.util.Scanner sc) {
