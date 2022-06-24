@@ -1,7 +1,10 @@
 package parser;
 
+import parser.action.AcceptAction;
+import parser.action.Action;
+import parser.action.ReduceAction;
+import parser.action.ShiftAction;
 import scanner.token.Token;
-import scanner.type.Type;
 
 import java.util.*;
 
@@ -31,7 +34,7 @@ public class ParseTable {
                 } catch (Exception ignored) {
                 }
             } else {
-                terminals.put(i, new Token(Token.getTyepFormString(cols[i]), cols[i]));
+                terminals.put(i, new Token(Token.getTypeFormString(cols[i]), cols[i]));
             }
         }
     }
@@ -45,10 +48,11 @@ public class ParseTable {
             for (int j = 1; j < cols.length; j++) {
                 if (!cols[j].equals("")) {
                     if (cols[j].equals("acc")) {
-                        actionTable.get(actionTable.size() - 1).put(terminals.get(j), new Action(act.accept, 0));
+                        actionTable.get(actionTable.size() - 1).put(terminals.get(j), new AcceptAction(0));
                     } else if (terminals.containsKey(j)) {
                         Token t = terminals.get(j);
-                        Action a = new Action(cols[j].charAt(0) == 'r' ? act.reduce : act.shift, Integer.parseInt(cols[j].substring(1)));
+                        Action a = cols[j].charAt(0) == 'r' ? new ReduceAction(Integer.parseInt(cols[j].substring(1))) :
+                                new ShiftAction(Integer.parseInt(cols[j].substring(1)));
                         actionTable.get(actionTable.size() - 1).put(t, a);
                     } else if (nonTerminals.containsKey(j)) {
                         gotoTable.get(gotoTable.size() - 1).put(nonTerminals.get(j), Integer.parseInt(cols[j]));
