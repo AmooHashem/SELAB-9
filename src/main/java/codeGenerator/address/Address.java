@@ -1,6 +1,5 @@
 package codeGenerator.address;
 
-import codeGenerator.TypeAddress;
 import codeGenerator.varType;
 
 /**
